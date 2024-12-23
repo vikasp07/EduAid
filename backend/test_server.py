@@ -23,6 +23,12 @@ input_text = '''
     with data collection, and the impact of AI on jobs and society as a whole.
 '''
 
+def make_post_request(endpoint, data):
+    url = f'{BASE_URL}{endpoint}'
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    return response.json()
+
 def test_get_mcq():
     endpoint = '/get_mcq'
     data = {
@@ -101,12 +107,6 @@ def test_get_boolean_answer():
     response = make_post_request(endpoint, data)
     print(f'/get_boolean_answer Response: {response}')
     assert 'output' in response
-
-def make_post_request(endpoint, data):
-    url = f'{BASE_URL}{endpoint}'
-    headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, headers=headers, data=json.dumps(data))
-    return response.json()
 
 if __name__ == '__main__':
     test_get_mcq()
